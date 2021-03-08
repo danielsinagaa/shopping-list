@@ -21,7 +21,9 @@ import com.example.shop_list_retrofit.data.repositories.ItemRepositoryImpl
 import com.example.shop_list_retrofit.databinding.FragmentListBinding
 import com.example.shop_list_retrofit.presentation.ui.LoadingDialog
 import com.example.shop_list_retrofit.utils.ResourceStatus
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ListFragment : Fragment() {
 
     private lateinit var itemListViewAdapter: ItemListViewAdapter
@@ -57,13 +59,7 @@ class ListFragment : Fragment() {
     }
 
     private fun initViewmodel() {
-        viewModel = ViewModelProvider(this, object : ViewModelProvider.Factory{
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val repo = ItemRepositoryImpl()
-                return ListItemViewModel(repo) as T
-            }
-
-        }).get(ListItemViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(ListItemViewModel::class.java)
     }
 
     private fun subscribe() {

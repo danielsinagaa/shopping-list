@@ -25,9 +25,11 @@ import com.example.shop_list_retrofit.databinding.FragmentFormBinding
 import com.example.shop_list_retrofit.presentation.list.ListItemViewModel
 import com.example.shop_list_retrofit.presentation.ui.LoadingDialog
 import com.example.shop_list_retrofit.utils.ResourceStatus
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
 
+@AndroidEntryPoint
 class FormFragment : Fragment() {
 
     private var itemUpdate: ItemEntity? = null
@@ -152,20 +154,8 @@ class FormFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        listViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val repo = ItemRepositoryImpl()
-                return ListItemViewModel(repo) as T
-            }
-
-        }).get(ListItemViewModel::class.java)
-        formViewModel = ViewModelProvider(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                val repo = ItemRepositoryImpl()
-                return FormViewModel(repo) as T
-            }
-
-        }).get(FormViewModel::class.java)
+        listViewModel = ViewModelProvider(this).get(ListItemViewModel::class.java)
+        formViewModel = ViewModelProvider(this).get(FormViewModel::class.java)
     }
 
     private fun subscribe() {

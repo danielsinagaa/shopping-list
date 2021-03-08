@@ -4,14 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.shop_list_retrofit.data.api.ItemRepository
+import com.example.shop_list_retrofit.data.di.qualifier.ShoppingListRepo
 import com.example.shop_list_retrofit.data.models.ItemEntity
 import com.example.shop_list_retrofit.utils.ItemClickListener
 import com.example.shop_list_retrofit.utils.ResourceState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ListItemViewModel(private val itemRepository: ItemRepository) : ViewModel(),
+@HiltViewModel
+class ListItemViewModel @Inject constructor(@ShoppingListRepo private val itemRepository: ItemRepository) : ViewModel(),
     ItemClickListener {
 
     private var _itemListLiveData = MutableLiveData<ResourceState>()

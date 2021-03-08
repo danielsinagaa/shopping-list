@@ -4,14 +4,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.shop_list_retrofit.data.api.ItemRepository
+import com.example.shop_list_retrofit.data.di.qualifier.ShoppingListRepo
 import com.example.shop_list_retrofit.data.models.ItemRequest
 import com.example.shop_list_retrofit.utils.ResourceState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FormViewModel(private val repository: ItemRepository) : ViewModel() {
+@HiltViewModel
+class FormViewModel @Inject constructor(@ShoppingListRepo private val repository: ItemRepository ) : ViewModel() {
 
     private var _inputValidation = MutableLiveData<ResourceState>()
     val inputValidation: LiveData<ResourceState>
